@@ -393,11 +393,11 @@ function HomePage() {
 
       {/* Floating WhatsApp */}
       <a
-        href={`https://wa.me/${WHATSAPP}?text=${encodeURIComponent("Hi Moo Chapatis! I'd like to order.")}`}
+        href={WHATSAPP_LINK}
         target="_blank"
         rel="noreferrer"
         aria-label="Chat on WhatsApp"
-        className="fixed bottom-5 right-5 z-40 flex h-14 w-14 items-center justify-center rounded-full bg-[oklch(0.7_0.18_150)] text-white shadow-glow animate-pulse-glow"
+        className="fixed bottom-5 right-5 z-40 flex h-14 w-14 items-center justify-center rounded-full bg-[oklch(0.7_0.18_150)] text-white shadow-glow animate-pulse-glow transition-transform hover:scale-110 active:scale-95"
       >
         <MessageCircle className="h-7 w-7" />
       </a>
