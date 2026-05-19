@@ -203,7 +203,7 @@ function HomePage() {
               <div className="text-[10px] font-medium text-muted-foreground">Order, We Deliver</div>
             </div>
           </a>
-          <Button size="sm" className="rounded-full bg-gradient-primary shadow-soft" onClick={() => openOrder()}>
+          <Button size="sm" className="rounded-full bg-gradient-primary shadow-soft transition-transform hover:scale-105 active:scale-95" onClick={() => openOrder()}>
             <ShoppingBag className="mr-1.5 h-4 w-4" /> Order
           </Button>
         </div>
