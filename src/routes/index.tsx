@@ -50,7 +50,7 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Order fresh hot chapatis in Kitengela. Daily delivery 7PM–10PM. Bonus on first 5+ orders. WhatsApp 0718357737.",
+          "Order fresh hot chapatis in Kitengela. Open 24 hours. Bonus on first 5+ orders. WhatsApp 0718357737.",
       },
     ],
     links: [{ rel: "canonical", href: "/" }],
