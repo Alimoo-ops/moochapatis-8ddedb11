@@ -318,7 +318,7 @@ function HomePage() {
             <p className="mt-1 max-w-md text-sm opacity-95">
               Order today and we'll add extras to your pack. Limited daily — order early!
             </p>
-            <Button onClick={() => openOrder()} className="mt-4 rounded-full bg-white text-primary hover:bg-white/95">
+            <Button onClick={() => openOrder()} className="mt-4 rounded-full bg-white text-primary hover:bg-white/95 transition-transform hover:scale-105 active:scale-95 animate-pulse-glow">
               Claim Bonus
             </Button>
           </div>
