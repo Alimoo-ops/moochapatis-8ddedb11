@@ -103,10 +103,10 @@ const TESTIMONIALS = [
 ];
 
 function HomePage() {
-  // Start splash visible during SSR/first paint to prevent any flicker of the
-  // main page before the intro completes. We dismiss it after hydration if
-  // it's already been shown this session.
+  // Splash state: starts true for SSR/first paint to prevent flicker.
+  // Uses a fade-out transition before unmounting.
   const [splash, setSplash] = useState(true);
+  const [splashFading, setSplashFading] = useState(false);
   const [showOrder, setShowOrder] = useState(false);
   const [selected, setSelected] = useState(PRODUCTS[0]);
   const [qty, setQty] = useState(5);
