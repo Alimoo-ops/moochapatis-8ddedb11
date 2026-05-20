@@ -103,7 +103,10 @@ const TESTIMONIALS = [
 ];
 
 function HomePage() {
-  const [splash, setSplash] = useState(false);
+  // Start splash visible during SSR/first paint to prevent any flicker of the
+  // main page before the intro completes. We dismiss it after hydration if
+  // it's already been shown this session.
+  const [splash, setSplash] = useState(true);
   const [showOrder, setShowOrder] = useState(false);
   const [selected, setSelected] = useState(PRODUCTS[0]);
   const [qty, setQty] = useState(5);
@@ -119,12 +122,15 @@ function HomePage() {
 
   useEffect(() => {
     if (typeof window === "undefined") return;
-    if (!sessionStorage.getItem("moo_splash")) {
-      setSplash(true);
-      sessionStorage.setItem("moo_splash", "1");
-      const t = setTimeout(() => setSplash(false), 1800);
-      return () => clearTimeout(t);
+    // If we've already shown the splash this session, dismiss immediately
+    // (still no flicker — splash covers the page until this runs).
+    if (sessionStorage.getItem("moo_splash")) {
+      setSplash(false);
+      return;
     }
+    sessionStorage.setItem("moo_splash", "1");
+    const t = setTimeout(() => setSplash(false), 1800);
+    return () => clearTimeout(t);
   }, []);
 
   const total = useMemo(() => selected.price * qty, [selected, qty]);
