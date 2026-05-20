@@ -188,7 +188,11 @@ function HomePage() {
     <div className="min-h-screen bg-background">
       {/* Splash */}
       {splash && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-gradient-hero">
+        <div
+          className={`fixed inset-0 z-[100] flex items-center justify-center bg-gradient-hero transition-opacity duration-500 ease-out ${
+            splashFading ? "opacity-0 pointer-events-none" : "opacity-100"
+          }`}
+        >
           <div className="text-center text-primary-foreground">
             <div className="mx-auto mb-4 flex h-20 w-20 items-center justify-center rounded-3xl bg-white/20 backdrop-blur animate-float">
               <Flame className="h-10 w-10" />
