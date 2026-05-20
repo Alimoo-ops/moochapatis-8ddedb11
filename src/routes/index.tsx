@@ -103,10 +103,10 @@ const TESTIMONIALS = [
 ];
 
 function HomePage() {
-  // Start splash visible during SSR/first paint to prevent any flicker of the
-  // main page before the intro completes. We dismiss it after hydration if
-  // it's already been shown this session.
+  // Splash state: starts true for SSR/first paint to prevent flicker.
+  // Uses a fade-out transition before unmounting.
   const [splash, setSplash] = useState(true);
+  const [splashFading, setSplashFading] = useState(false);
   const [showOrder, setShowOrder] = useState(false);
   const [selected, setSelected] = useState(PRODUCTS[0]);
   const [qty, setQty] = useState(5);
@@ -122,14 +122,16 @@ function HomePage() {
 
   useEffect(() => {
     if (typeof window === "undefined") return;
-    // If we've already shown the splash this session, dismiss immediately
-    // (still no flicker — splash covers the page until this runs).
+    const dismiss = () => {
+      setSplashFading(true);
+      setTimeout(() => setSplash(false), 500);
+    };
     if (sessionStorage.getItem("moo_splash")) {
-      setSplash(false);
+      dismiss();
       return;
     }
     sessionStorage.setItem("moo_splash", "1");
-    const t = setTimeout(() => setSplash(false), 1800);
+    const t = setTimeout(dismiss, 1800);
     return () => clearTimeout(t);
   }, []);
 
@@ -186,7 +188,11 @@ function HomePage() {
     <div className="min-h-screen bg-background">
       {/* Splash */}
       {splash && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-gradient-hero">
+        <div
+          className={`fixed inset-0 z-[100] flex items-center justify-center bg-gradient-hero transition-opacity duration-500 ease-out ${
+            splashFading ? "opacity-0 pointer-events-none" : "opacity-100"
+          }`}
+        >
           <div className="text-center text-primary-foreground">
             <div className="mx-auto mb-4 flex h-20 w-20 items-center justify-center rounded-3xl bg-white/20 backdrop-blur animate-float">
               <Flame className="h-10 w-10" />
